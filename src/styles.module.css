@@ -1,0 +1,23 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  top: 0;
+  left: 0;
+  background: cover;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.gameScreen {
+  margin: 0;
+  padding: 0;
+  top: 0;
+  left: 0;
+  background: cover;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
