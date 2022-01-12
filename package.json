@@ -1,5 +1,5 @@
 {
-  "name": "Pong",
+  "name": "pong",
   "version": "1.0.0",
   "description": "Pong game using r3f and r3cannon",
   "keywords": [
@@ -15,10 +15,7 @@
     "react-scripts": "4.0.0",
     "three": "0.135.0"
   },
-  "devDependencies": {
-    "@babel/runtime": "7.13.8",
-    "typescript": "4.1.3"
-  },
+  
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
