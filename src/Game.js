@@ -1,10 +1,12 @@
 import styles from "./styles.module.css";
-import { Canvas} from "@react-three/fiber";
+import { Canvas, useFrame} from "@react-three/fiber";
 import { Physics, useSphere, useBox, usePlane } from "@react-three/cannon";
+import {useControls} from "./Controls"
 
 function Pad(props) 
 {
   const [ref, api] = useBox(() => ({
+    type: "Kinematic",
     args: [1, 15, 1],
     mass: 1,
     ...props
@@ -14,6 +16,7 @@ function Pad(props)
     <mesh ref={ref} position={props.position} >
       <boxBufferGeometry attach="geometry" args={[1, 15, 1]}/>
       <meshStandardMaterial attach="material" color = {props.color}/>
+      
     </mesh>
   )
 }
@@ -22,11 +25,14 @@ function Ball(props)
 {
   const [ref, api] = useSphere(() => ({
     mass: 1,
+    args: [1],
+    position: [5,0,0],
+    velocity: [100,0,0],
     ...props
   }))
 
   return (
-    <mesh ref = {ref} position = {props.position}>
+    <mesh ref = {ref}>
       <sphereBufferGeometry attach = "geometry" args = {[1, 64, 64]}/>
       <meshStandardMaterial color = {props.color}/>
     </mesh>
@@ -63,6 +69,8 @@ function Plane(props)
 
 function Game() 
 {
+  const controls = useControls()
+  
   return (
     <div className={styles.gameScreen}>
       <Canvas
@@ -74,13 +82,21 @@ function Game()
         }}
       >
         <Physics
-          gravity = {[0,0,0]}>
+          gravity = {[0,0,0]}
+          defaultContactMaterial={{
+            friction: 1,
+            restitution: 1,
+            // contactEquationStiffness: 0,
+            // contactEquationRelaxation: 0,
+            // frictionEquationStiffness: 0,
+            // frictionEquationRelaxation: 0,
+          }}>
           <ambientLight/>
           {/* <Boundaries/> */}
-          <Plane position = {[0,0,-0.5]} color = "black"/>
+          {/* <Plane position = {[0,0,-1]} color = "black"/> */}
           <Pad position={[-100, 0, 0]} color = "red" />
           <Pad position={[100, 0, 0]} color = "blue"/>
-          <Ball position={[0,0,0]} color = "green"/>
+          <Ball color = "green"/>
         </Physics>
       </Canvas>
     </div>
